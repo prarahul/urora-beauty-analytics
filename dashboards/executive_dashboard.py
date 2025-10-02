@@ -230,18 +230,35 @@ class AuroraDashboard:
         st.markdown('<h1 class="main-header">💄 Aurora Beauty SEA - Executive Dashboard</h1>', 
                    unsafe_allow_html=True)
         
-        # Portfolio showcase banner
+        # Portfolio showcase banner - clean and simple
         st.markdown("""
-        <div style='background: linear-gradient(90deg, #E91E63, #9C27B0); padding: 1rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; color: white;'>
-            <h3 style='margin: 0; color: white;'>🎯 Portfolio Project Showcase</h3>
-            <p style='margin: 0.5rem 0; color: white;'>End-to-End Analytics Platform | Data Engineering + ML + Business Intelligence</p>
-            <p style='margin: 0; font-size: 0.9rem; color: white;'>
-                <strong>Business Impact:</strong> $2M+ Revenue Uplift | 
-                <strong>Performance:</strong> <3s Load Times | 
-                <strong>Scale:</strong> 8 Countries, 50K+ Transactions
-            </p>
+        <div style='background: linear-gradient(90deg, #E91E63, #9C27B0); padding: 2rem; border-radius: 10px; margin: 1rem 0; text-align: center;'>
+            <h2 style='color: white; margin: 0;'>🎯 Portfolio Project Showcase</h2>
+            <p style='color: white; margin: 0.5rem 0;'>End-to-End Analytics Platform | Data Engineering + ML + Business Intelligence</p>
         </div>
         """, unsafe_allow_html=True)
+        
+        # Business impact showcase
+        st.markdown("### 📈 **Demonstrated Business Impact**")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("💰 Revenue Uplift", "$2M+", "Projected Annual")
+        with col2:
+            st.metric("⚡ Decision Speed", "15%", "Faster Decisions")
+        with col3:
+            st.metric("🎯 Cross-sell Rate", "33%", "ML Success Rate")
+        
+        # Technical capabilities
+        st.markdown("---")
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.markdown("**🏗️ Data Engineering**\nETL Pipelines, Dimensional Modeling")
+        with col2:
+            st.markdown("**📊 Business Intelligence**\nReal-time KPIs, Executive Dashboards")
+        with col3:
+            st.markdown("**🤖 Machine Learning**\nRecommendation Systems, 24%+ Precision")
+        with col4:
+            st.markdown("**🚀 Production Deployment**\nCloud Hosting, Performance Optimization")
         
         # Current date and dashboard info
         col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
