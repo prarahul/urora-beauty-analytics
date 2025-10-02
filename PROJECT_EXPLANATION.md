@@ -2,7 +2,7 @@
 
 
 
-This document explains how your Aurora Beauty analytics platform actually works, what happens when you change things, and how to naturally explain each component during interviews or demos.
+
 
 ---
 
