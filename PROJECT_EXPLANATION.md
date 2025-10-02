@@ -46,7 +46,7 @@ A: "The dimensional modeling approach makes this flexible. Each transaction is t
 ### What This Section Does
 This provides a country-by-country breakdown showing revenue, customer count, order volume, and average order value. It's essentially a geographic view of business performance.
 
-### What Happens When You Change Dashboard Filters
+### What Happens When we Change Dashboard Filters
 
 **Date Range Changes:**
 - Metrics recalculate for the new period
