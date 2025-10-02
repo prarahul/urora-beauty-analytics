@@ -601,6 +601,23 @@ class AuroraDashboard:
         if len(active_filters) > 1:  # More than just date range
             st.info(f"🎛️ **Active Filters**: {' | '.join(active_filters)}")
 
+    def render_readme_section(self):
+        """Display README content in the dashboard."""
+        try:
+            # Try to read the README file
+            readme_path = "README_FINAL.md"
+            with open(readme_path, 'r', encoding='utf-8') as f:
+                readme_content = f.read()
+            
+            # Show first few lines of README
+            st.markdown("### 📖 Project README")
+            with st.expander("Click to view project documentation", expanded=False):
+                st.markdown(readme_content[:1000] + "..." if len(readme_content) > 1000 else readme_content)
+        except FileNotFoundError:
+            st.markdown("### 💄 Aurora Beauty SEA Analytics Portfolio")
+            st.markdown("**Complete Data Science Project Demonstration**")
+            st.markdown("This dashboard showcases a complete end-to-end data science project with real business impact.")
+
     def render_dashboard(self):
         """Main dashboard rendering method."""
         # Render sidebar filters
@@ -616,6 +633,9 @@ class AuroraDashboard:
         
         # Show active filters indicator
         self.render_filter_indicator(filters)
+        
+        # Show README content
+        self.render_readme_section()
         
         # KPI cards
         self.render_kpi_cards(filters)
@@ -651,43 +671,28 @@ class AuroraDashboard:
         # Channel performance
         self.render_channel_performance()
         
-        # Portfolio Footer
+        # Portfolio Footer - Simple Text Only
         st.markdown("---")
-        st.markdown("""
-        <div style='background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-top: 2rem;'>
-            <div style='text-align: center; color: #666;'>
-                <h3 style='color: #E91E63; margin-bottom: 1rem;'>💄 Aurora Beauty SEA Analytics Portfolio</h3>
-                <p><strong>Complete Data Science Project Demonstration</strong></p>
-                
-                <div style='display: flex; justify-content: center; gap: 2rem; margin: 1rem 0; flex-wrap: wrap;'>
-                    <div>🏗️ <strong>Data Engineering</strong><br>ETL Pipelines, Dimensional Modeling</div>
-                    <div>📊 <strong>Business Intelligence</strong><br>Real-time KPIs, Executive Dashboards</div>
-                    <div>🤖 <strong>Machine Learning</strong><br>Recommendation Systems, 24%+ Precision</div>
-                    <div>🚀 <strong>Production Deployment</strong><br>Cloud Hosting, Performance Optimization</div>
-                </div>
-                
-                <div style='margin: 1.5rem 0; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #E91E63;'>
-                    <h4 style='color: #E91E63; margin: 0 0 0.5rem 0;'>📈 Demonstrated Business Impact</h4>
-                    <p style='margin: 0;'>
-                        <strong>$2M+ Projected Revenue Uplift</strong> | 
-                        <strong>15% Faster Decision Making</strong> | 
-                        <strong>33% Cross-sell Success Rate</strong>
-                    </p>
-                </div>
-                
-                <p style='font-size: 0.9rem; color: #888;'>
-                    🔄 Last updated: {timestamp} | 
-                    📊 Real-time synthetic data simulation | 
-                    🌏 8 SEA markets coverage
-                </p>
-                
-                <p style='font-size: 0.8rem; color: #aaa; margin-top: 1rem;'>
-                    This portfolio project showcases senior-level data science capabilities from problem identification through production deployment.
-                </p>
-            </div>
-        </div>
-        """.format(timestamp=datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC+8')), 
-        unsafe_allow_html=True)
+        st.markdown("### 💄 Aurora Beauty SEA Analytics Portfolio")
+        st.markdown("**Complete Data Science Project Demonstration**")
+        
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.markdown("**🏗️ Data Engineering**  \nETL Pipelines, Dimensional Modeling")
+        with col2:
+            st.markdown("**📊 Business Intelligence**  \nReal-time KPIs, Executive Dashboards")
+        with col3:
+            st.markdown("**🤖 Machine Learning**  \nRecommendation Systems, 24%+ Precision")
+        with col4:
+            st.markdown("**🚀 Production Deployment**  \nCloud Hosting, Performance Optimization")
+        
+        st.markdown("---")
+        st.markdown("#### 📈 Demonstrated Business Impact")
+        st.markdown("**$2M+ Projected Revenue Uplift** | **15% Faster Decision Making** | **33% Cross-sell Success Rate**")
+        
+        st.markdown("---")
+        st.caption(f"🔄 Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC+8')} | 📊 Real-time synthetic data simulation | 🌏 8 SEA markets coverage")
+        st.caption("This portfolio project showcases senior-level data science capabilities from problem identification through production deployment.")
 
 def main():
     """Main application entry point."""
