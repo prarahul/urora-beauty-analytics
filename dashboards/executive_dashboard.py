@@ -45,63 +45,7 @@ st.set_page_config(
     }
 )
 
-# Custom CSS for Aurora Beauty branding
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.5rem;
-        color: #E91E63;
-        text-align: center;
-        font-weight: 700;
-        margin-bottom: 2rem;
-        background: linear-gradient(90deg, #E91E63, #9C27B0);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    
-    .metric-card {
-        background: white;
-        padding: 1rem;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border-left: 4px solid #E91E63;
-    }
-    
-    .kpi-value {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #E91E63;
-    }
-    
-    .kpi-label {
-        font-size: 0.9rem;
-        color: #666;
-        text-transform: uppercase;
-    }
-    
-    .alert-success {
-        background-color: #d4edda;
-        border: 1px solid #c3e6cb;
-        color: #155724;
-        padding: 0.75rem;
-        border-radius: 0.25rem;
-        margin-bottom: 1rem;
-    }
-    
-    .alert-warning {
-        background-color: #fff3cd;
-        border: 1px solid #ffeaa7;
-        color: #856404;
-        padding: 0.75rem;
-        border-radius: 0.25rem;
-        margin-bottom: 1rem;
-    }
-    
-    .sidebar .sidebar-content {
-        background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-</style>
-""", unsafe_allow_html=True)
+# CSS removed to prevent HTML rendering issues - using native Streamlit styling
 
 class AuroraDashboard:
     """Aurora Beauty Executive Dashboard with real-time KPIs and analytics."""
@@ -227,16 +171,12 @@ class AuroraDashboard:
     
     def render_header(self):
         """Render dashboard header with branding and portfolio info."""
-        st.markdown('<h1 class="main-header">💄 Aurora Beauty SEA - Executive Dashboard</h1>', 
-                   unsafe_allow_html=True)
+        # Simple text-based header - no HTML
+        st.title("💄 Aurora Beauty SEA - Executive Dashboard")
         
-        # Portfolio showcase banner - clean and simple
-        st.markdown("""
-        <div style='background: linear-gradient(90deg, #E91E63, #9C27B0); padding: 2rem; border-radius: 10px; margin: 1rem 0; text-align: center;'>
-            <h2 style='color: white; margin: 0;'>🎯 Portfolio Project Showcase</h2>
-            <p style='color: white; margin: 0.5rem 0;'>End-to-End Analytics Platform | Data Engineering + ML + Business Intelligence</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # Portfolio showcase using native Streamlit
+        st.markdown("## 🎯 Portfolio Project Showcase")
+        st.markdown("**End-to-End Analytics Platform | Data Engineering + ML + Business Intelligence**")
         
         # Business impact showcase
         st.markdown("### 📈 **Demonstrated Business Impact**")
