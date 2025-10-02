@@ -150,6 +150,10 @@ class AuroraDashboard:
                 
                 daily_revenue = base_revenue * seasonal_factor * dow_factor * random_factor
                 
+                # Add random channel and category for filtering
+                channels = ['E-commerce', 'Marketplace', 'Retail', 'Social Commerce']
+                categories = ['Skincare', 'Makeup', 'Haircare', 'Fragrance', 'Body Care']
+                
                 daily_data.append({
                     'date': date,
                     'country': country,
@@ -157,7 +161,9 @@ class AuroraDashboard:
                     'revenue': daily_revenue,
                     'customers': int(daily_revenue / np.random.uniform(45, 85)),
                     'orders': int(daily_revenue / np.random.uniform(65, 95)),
-                    'avg_order_value': daily_revenue / max(1, int(daily_revenue / np.random.uniform(65, 95)))
+                    'avg_order_value': daily_revenue / max(1, int(daily_revenue / np.random.uniform(65, 95))),
+                    'channel': np.random.choice(channels),
+                    'category': np.random.choice(categories)
                 })
         
         self.daily_data = pd.DataFrame(daily_data)
@@ -249,14 +255,15 @@ class AuroraDashboard:
             if st.button("🔄 Refresh Now"):
                 st.rerun()
     
-    def render_kpi_cards(self):
+    def render_kpi_cards(self, filters=None):
         """Render main KPI summary cards."""
         st.markdown("## 📊 Key Performance Indicators")
         
-        # Calculate current month metrics
-        current_month_data = self.daily_data[
-            self.daily_data['date'] >= (datetime.now() - timedelta(days=30))
-        ]
+        # Use filtered data if available, otherwise use all data
+        data_to_use = getattr(self, 'filtered_daily_data', self.daily_data)
+        
+        # Calculate metrics from filtered data
+        current_month_data = data_to_use
         
         total_revenue = current_month_data['revenue'].sum()
         total_customers = current_month_data['customers'].sum()
@@ -303,13 +310,16 @@ class AuroraDashboard:
                 delta_color="normal" if aov_growth >= 0 else "inverse"
             )
     
-    def render_revenue_trends(self):
+    def render_revenue_trends(self, filters=None):
         """Render revenue trend visualization."""
         st.markdown("## 📈 Revenue Trends")
         
+        # Use filtered data if available
+        data_to_use = getattr(self, 'filtered_daily_data', self.daily_data)
+        
         # Aggregate daily data by month
-        monthly_data = self.daily_data.groupby([
-            self.daily_data['date'].dt.to_period('M'), 'country'
+        monthly_data = data_to_use.groupby([
+            data_to_use['date'].dt.to_period('M'), 'country'
         ]).agg({
             'revenue': 'sum',
             'customers': 'sum',
@@ -342,10 +352,11 @@ class AuroraDashboard:
         """Render regional performance heatmap."""
         st.markdown("## 🌏 Regional Performance")
         
-        # Aggregate by country for current month
-        country_summary = self.daily_data[
-            self.daily_data['date'] >= (datetime.now() - timedelta(days=30))
-        ].groupby('country').agg({
+        # Use filtered data if available
+        data_to_use = getattr(self, 'filtered_daily_data', self.daily_data)
+        
+        # Aggregate by country for filtered period
+        country_summary = data_to_use.groupby('country').agg({
             'revenue': 'sum',
             'customers': 'sum',
             'orders': 'sum'
@@ -582,21 +593,80 @@ class AuroraDashboard:
             'dark_mode': dark_mode
         }
     
+    def apply_filters(self, data, filters):
+        """Apply filters to the data."""
+        filtered_data = data.copy()
+        
+        # Apply date range filter
+        if 'date' in filtered_data.columns:
+            start_date, end_date = filters['date_range']
+            filtered_data = filtered_data[
+                (filtered_data['date'] >= pd.to_datetime(start_date)) & 
+                (filtered_data['date'] <= pd.to_datetime(end_date))
+            ]
+        
+        # Apply country filter
+        if 'country' in filtered_data.columns and 'All' not in filters['countries']:
+            filtered_data = filtered_data[filtered_data['country'].isin(filters['countries'])]
+        
+        # Apply channel filter (if column exists)
+        if 'channel' in filtered_data.columns and 'All' not in filters['channels']:
+            filtered_data = filtered_data[filtered_data['channel'].isin(filters['channels'])]
+        
+        # Apply category filter (if column exists)
+        if 'category' in filtered_data.columns and 'All' not in filters['categories']:
+            filtered_data = filtered_data[filtered_data['category'].isin(filters['categories'])]
+        
+        return filtered_data
+
+    def render_filter_indicator(self, filters):
+        """Show active filters to users."""
+        active_filters = []
+        
+        # Check date range
+        start_date, end_date = filters['date_range']
+        date_range_str = f"📅 {start_date.strftime('%Y/%m/%d')} - {end_date.strftime('%Y/%m/%d')}"
+        active_filters.append(date_range_str)
+        
+        # Check other filters
+        if 'All' not in filters['countries']:
+            countries_str = f"🌏 Countries: {', '.join(filters['countries'])}"
+            active_filters.append(countries_str)
+        
+        if 'All' not in filters['channels']:
+            channels_str = f"📱 Channels: {', '.join(filters['channels'])}"
+            active_filters.append(channels_str)
+        
+        if 'All' not in filters['categories']:
+            categories_str = f"🏷️ Categories: {', '.join(filters['categories'])}"
+            active_filters.append(categories_str)
+        
+        if len(active_filters) > 1:  # More than just date range
+            st.info(f"🎛️ **Active Filters**: {' | '.join(active_filters)}")
+
     def render_dashboard(self):
         """Main dashboard rendering method."""
         # Render sidebar filters
         filters = self.render_sidebar_filters()
         
+        # Apply filters to data
+        self.filtered_daily_data = self.apply_filters(self.daily_data, filters)
+        self.filtered_product_data = self.apply_filters(self.product_data, filters)
+        self.filtered_channel_data = self.apply_filters(self.channel_data, filters)
+        
         # Main dashboard content
         self.render_header()
         
+        # Show active filters indicator
+        self.render_filter_indicator(filters)
+        
         # KPI cards
-        self.render_kpi_cards()
+        self.render_kpi_cards(filters)
         
         st.markdown("---")
         
         # Revenue trends
-        self.render_revenue_trends()
+        self.render_revenue_trends(filters)
         
         st.markdown("---")
         
