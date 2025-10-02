@@ -9,21 +9,21 @@
 ## Revenue Trends Analysis
 
 ### What This Section Does
-The revenue trends chart shows monthly revenue patterns across all 8 SEA countries. It uses your transaction data to identify seasonal patterns, growth trends, and market performance differences.
+The revenue trends chart shows monthly revenue patterns across all 8 SEA countries. It uses wer transaction data to identify seasonal patterns, growth trends, and market performance differences.
 
-### What Happens When You Change Data/Filters
+### What Happens When we Change Data/Filters
 
-**When you adjust the date range:**
+**When we adjust the date range:**
 - The chart automatically recalculates monthly aggregations for the selected period
 - You'll see different seasonal patterns (e.g., November-December spikes for holiday shopping)
 - Growth rates change based on the comparison period
 
-**When you filter by specific countries:**
+**When we filter by specific countries:**
 - The chart focuses only on selected markets
 - You can compare Indonesia (largest market) vs Singapore (highest value per customer)
 - Helps identify which markets are growing vs declining
 
-**When you filter by sales channels:**
+**When we filter by sales channels:**
 - E-commerce vs Marketplace vs Retail performance becomes visible
 - Shows channel-specific seasonal patterns (online peaks during lockdowns)
 - Reveals which channels drive growth in each market
@@ -33,7 +33,7 @@ The revenue trends chart shows monthly revenue patterns across all 8 SEA countri
 **Q: "What would happen if one country's currency suddenly devalued?"**
 A: "The system normalizes all revenue to USD using daily exchange rates, so we'd see the impact immediately in the trends. The ETL pipeline has built-in currency conversion that handles this automatically. I implemented fallback mechanisms for missing exchange rate data."
 
-**Q: "How do you handle seasonal adjustments?"**
+**Q: "How do we handle seasonal adjustments?"**
 A: "The data shows natural seasonality - higher sales in November-December for holidays, and February-March for Valentine's and Women's Day. The forecasting component can account for these patterns. I built the aggregation logic to show both raw trends and seasonally-adjusted views."
 
 **Q: "What if a country changes its business model?"**
@@ -77,10 +77,10 @@ This provides a country-by-country breakdown showing revenue, customer count, or
 
 ### Interview Insights
 
-**Q: "How would you identify underperforming markets?"**
+**Q: "How would we identify underperforming markets?"**
 A: "I look at multiple metrics together. Low revenue with high customer count suggests pricing issues. High revenue but declining customer growth indicates retention problems. The filtering system helps isolate these patterns quickly."
 
-**Q: "What if you needed to add a new country?"**
+**Q: "What if we needed to add a new country?"**
 A: "The ETL pipeline is designed for this. Just add the country mapping to the data generation, include currency conversion rates, and the dashboard automatically picks it up. The dimensional model doesn't need schema changes."
 
 ---
@@ -111,10 +111,10 @@ Beauty companies need to understand:
 
 ### Common Business Questions
 
-**Q: "Why do you track units sold separately from revenue?"**
+**Q: "Why do we track units sold separately from revenue?"**
 A: "Revenue can be misleading if we're running promotions or changing prices. Units sold shows true demand. Together, they reveal pricing elasticity - if units go up but revenue stays flat, we might be discounting too much."
 
-**Q: "How do you handle new product launches?"**
+**Q: "How do we handle new product launches?"**
 A: "New products initially show in the 'others' category until they reach meaningful volume. The system tracks launch performance and can flag if a new product isn't meeting expectations within the first few months."
 
 ---
@@ -126,9 +126,9 @@ Divides customers into Bronze, Silver, Gold, and Platinum tiers based on purchas
 
 ### Why This Matters for Business
 - **Platinum customers (3%)** generate disproportionate revenue - need VIP treatment
-- **Gold customers (12%)** are your growth engine - focus on retention
+- **Gold customers (12%)** are wer growth engine - focus on retention
 - **Silver customers (25%)** have upgrade potential - target for cross-selling
-- **Bronze customers (60%)** are your volume base - optimize for efficiency
+- **Bronze customers (60%)** are wer volume base - optimize for efficiency
 
 ### How the Segmentation Works
 ```
@@ -140,10 +140,10 @@ Bronze: <$100 LTV, infrequent purchases, low engagement
 
 ### Interview Talking Points
 
-**Q: "How would you improve the segmentation model?"**
+**Q: "How would we improve the segmentation model?"**
 A: "Currently it's based on spending patterns, but I'd add behavioral data - email opens, website visits, social media engagement. Also recency is important - a customer who spent $1000 last year but nothing this year needs different treatment than an active $200 customer."
 
-**Q: "What actions would you recommend for each segment?"**
+**Q: "What actions would we recommend for each segment?"**
 A: "Platinum gets personal account managers and early access. Gold gets loyalty rewards and category recommendations. Silver gets targeted promotions to increase frequency. Bronze gets broad reach, cost-effective campaigns."
 
 ---
@@ -216,7 +216,7 @@ Customers might discover via Social, research on Marketplace, but buy on E-comme
 
 ### 5-Minute Demo Script
 
-**Minute 1**: "This is Aurora Beauty's analytics platform for their SEA markets. Let me show you the business impact first - here's $2M+ in identified opportunities."
+**Minute 1**: "This is Aurora Beauty's analytics platform for their SEA markets. Let me show we the business impact first - here's $2M+ in identified opportunities."
 
 **Minute 2**: "The revenue trends show seasonal patterns across countries. Watch what happens when I filter to just Indonesia - see how the patterns change?"
 
@@ -238,20 +238,20 @@ Customers might discover via Social, research on Marketplace, but buy on E-comme
 ## Questions You Should Be Ready For
 
 ### Technical Questions
-1. "Walk me through your ETL pipeline design decisions"
-2. "Why did you choose a hybrid recommendation approach?"
-3. "How do you handle data quality issues?"
-4. "What would you do differently if you built this again?"
+1. "Walk me through wer ETL pipeline design decisions"
+2. "Why did we choose a hybrid recommendation approach?"
+3. "How do we handle data quality issues?"
+4. "What would we do differently if we built this again?"
 5. "How would this scale to 100x more data?"
 
 ### Business Questions
-1. "How did you validate the $2M impact estimate?"
+1. "How did we validate the $2M impact estimate?"
 2. "What would convince executives to invest in this platform?"
-3. "How do you measure success after deployment?"
+3. "How do we measure success after deployment?"
 4. "What business problems does this solve that weren't solved before?"
-5. "How do you prioritize which features to build next?"
+5. "How do we prioritize which features to build next?"
 
 ### Your Natural Responses
-Focus on real challenges you solved, trade-offs you made, and business value you created. Speak about the technical decisions as if you actually made them (which you did, through this process). Reference specific numbers and be ready to dive deeper into any component.
+Focus on real challenges we solved, trade-offs we made, and business value we created. Speak about the technical decisions as if we actually made them (which we did, through this process). Reference specific numbers and be ready to dive deeper into any component.
 
-Remember: This isn't just a portfolio project - it's a complete business solution that demonstrates your ability to translate business needs into technical solutions that create measurable value.
+Remember: This isn't just a portfolio project - it's a complete business solution that demonstrates wer ability to translate business needs into technical solutions that create measurable value.
