@@ -360,7 +360,7 @@ class AuroraDashboard:
                 'customers': '{:,}',
                 'orders': '{:,}',
                 'avg_order_value': '${:.2f}'
-            }).background_gradient(subset=['revenue'], cmap='Reds'),
+            }),
             use_container_width=True
         )
     
